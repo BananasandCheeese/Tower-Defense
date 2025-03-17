@@ -3,9 +3,7 @@ from enemy import Enemy
 import constants as c
 
 #initialise pygame
-pg.mixer.init()
 pg.init()
-pg.mixer.quit()
 
 #create clock
 clock = pg.time.Clock()
@@ -15,7 +13,7 @@ screen = pg.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT))
 pg.display.set_caption("Tower Defense")
 
 #load images
-enemy_image = pg.image.load('assets/images/enemies/enemy_1.png').convert_alpha()
+enemy_image = pg.image.load('Part 1/assets/images/enemies/enemy_1.png').convert_alpha()
 
 #create groups
 enemy_group = pg.sprite.Group()
@@ -29,6 +27,8 @@ while run:
    
    clock.tick(c.FPS)
 
+   enemy.move()
+
    #draw groups
    enemy_group.draw(screen)
 
@@ -37,5 +37,8 @@ while run:
     #quit program
     if event.type == pg.QUIT:
       run = False
+
+  #update display
+    pg.display.flip()
 
 pg.quit()          
