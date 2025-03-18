@@ -18,22 +18,35 @@ enemy_image = pg.image.load('Part 1/assets/images/enemies/enemy_1.png').convert_
 #create groups
 enemy_group = pg.sprite.Group()
 
-enemy = Enemy((200,300), enemy_image)
+waypoints = [
+  (100, 100),
+  (400, 200),
+  (400, 100),
+  (200, 300),
+]
+
+enemy = Enemy(waypoints, enemy_image)
 enemy_group.add(enemy)
 
 #game loop
 run = True
 while run: 
    
-   clock.tick(c.FPS)
+  clock.tick(c.FPS)
 
-   enemy.move()
+  screen.fill("grey100")
 
-   #draw groups
-   enemy_group.draw(screen)
+  #draw enemy path
+  pg.draw.lines(screen, "grey0", False, waypoints)
 
-   #event handler
-   for event in pg.event.get():
+  #update groups
+  enemy_group.update()
+
+  #draw groups
+  enemy_group.draw(screen)
+
+  #event handler
+  for event in pg.event.get():
     #quit program
     if event.type == pg.QUIT:
       run = False
