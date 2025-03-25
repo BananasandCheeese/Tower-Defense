@@ -30,8 +30,22 @@ with open('Part 1/assets/levels/level.tmj') as file:
 def create_turret(mouse_pos):
    mouse_tile_x = mouse_pos[0] // c.TILE_SIZE
    mouse_tile_y = mouse_pos[1] // c.TILE_SIZE
-   turret = Turret(cursor_turret, mouse_tile_x, mouse_tile_y)
-   turret_group.add(turret)
+   #calculate the sequential number of the tile
+   mouse_tile_num = (mouse_tile_y * c.COLS) + mouse_tile_x
+   #check if that tile is grass
+   if world.tile_map[mouse_tile_num] == 7:
+    print("click on grass")
+    #check that there isn't already a turret there
+    space_is_free = True
+    for turret in turret_group:
+      if (mouse_tile_x, mouse_tile_y) == (turret.tile_x, turret.tile_y):
+        print('clicked on turret')
+        space_is_free = False
+        #if it is a free space then create a turret
+    if space_is_free:
+      print("space is free")
+      new_turret = Turret(cursor_turret, mouse_tile_x, mouse_tile_y)
+      turret_group.add(new_turret)
 
 #create world
 world = World(world_data, map_image)
@@ -71,7 +85,7 @@ while run:
       mouse_pos = pg.mouse.get_pos()
       #check if mouse is on the game area
       if mouse_pos[0] < c.SCREEN_WIDTH and mouse_pos[1] < c.SCREEN_HEIGHT:
-       create_turret(mouse_pos)
+        create_turret(mouse_pos)
 
   # Update display
   pg.display.flip()
