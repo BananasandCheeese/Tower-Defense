@@ -25,7 +25,7 @@ cursor_turret = pg.image.load('Part 1/assets/images/turrets/cursor_turret.png').
 enemy_image = pg.image.load('Part 1/assets/images/enemies/enemy_1.png').convert_alpha()
 #buttons
 buy_turret_image =  pg.image.load('Part 1/assets/images/buttons/buy_turret.png').convert_alpha()
-cancel_image =  pg.image.load('Part 1/assets/images/buttons/cancel .png').convert_alpha()
+cancel_image =  pg.image.load('Part 1/assets/images/buttons/cancel.png').convert_alpha()
 
 
 #load json data for level

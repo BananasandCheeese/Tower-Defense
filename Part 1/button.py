@@ -10,7 +10,7 @@ class Button():
         #get mouse position
         pg.mouse.get_pos()
         #check mouse over and clicked conditions   
-        if self.rect.collidepoint(pos)
+        if self.rect.collidepoint(pos):
              if pg.mouse.get_pressed()[0] == 1:
                  pass
 
