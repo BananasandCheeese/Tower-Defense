@@ -86,42 +86,45 @@ while run:
 
   screen.fill("grey100")
 
-  #draw level
+  # Draw level
   world.draw(screen)
-
-  #draw buttons
-  #button for placing turrets
-  if turret_button.draw(screen):
-    placing_turrets = True
-    #If placing turrets then show the cancel button as well
-    if placing_turrets == True:
-     #show cursor turret
-     cursor_rect = cursor_turret.get_rect()
-     cursor_pos = pg.mouse.get_pos()
-     cursor_rect.center = cursor_pos
-     screen.blit(cursor_turret, cursor_rect) 
-     if cancel_button.draw(screen):
-      placing_turrets = False
 
   # Draw groups
   enemy_group.draw(screen)
   turret_group.draw(screen)
+
+  # Draw buttons
+  # Button for placing turrets
+  if turret_button.draw(screen):
+    placing_turrets = True
+
+  # If placing turrets, show the cursor turret and cancel button
+  if placing_turrets:
+    # Show cursor turret
+    cursor_rect = cursor_turret.get_rect()
+    cursor_pos = pg.mouse.get_pos()
+    cursor_rect.center = cursor_pos
+    screen.blit(cursor_turret, cursor_rect)
+
+    # Show cancel button
+    if cancel_button.draw(screen):
+      placing_turrets = False
 
   # Event handler
   for event in pg.event.get():
     # Quit program
     if event.type == pg.QUIT:
       run = False
-    #Mouse click
-    if event.type ==  pg.MOUSEBUTTONDOWN and event.button == 1:
+    # Mouse click
+    if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
       mouse_pos = pg.mouse.get_pos()
-      #check if mouse is on the game area
+      # Check if mouse is on the game area
       if mouse_pos[0] < c.SCREEN_WIDTH and mouse_pos[1] < c.SCREEN_HEIGHT:
-        if placing_turrets == True:
+        if placing_turrets:
           create_turret(mouse_pos)
 
   # Update display
   pg.display.flip()
 
-pg.quit()          
+pg.quit()
 
