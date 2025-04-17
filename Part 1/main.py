@@ -22,6 +22,8 @@ placing_turrets = False
 # Load images
 #map
 map_image = pg.image.load('Part 1/assets/levels/level.png').convert_alpha()
+#turret spritesheets
+turret_sheet = pg.image.load('Part 1/assets/images/turrets/turret_1.png').convert_alpha()
 #individual turret image for map cursor
 cursor_turret = pg.image.load('Part 1/assets/images/turrets/cursor_turret.png').convert_alpha()
 #enemies
@@ -29,7 +31,6 @@ enemy_image = pg.image.load('Part 1/assets/images/enemies/enemy_1.png').convert_
 #buttons
 buy_turret_image =  pg.image.load('Part 1/assets/images/buttons/buy_turret.png').convert_alpha()
 cancel_image =  pg.image.load('Part 1/assets/images/buttons/cancel.png').convert_alpha()
-
 
 #load json data for level
 with open('Part 1/assets/levels/level.tmj') as file:
@@ -49,7 +50,7 @@ def create_turret(mouse_pos):
         space_is_free = False
         #if it is a free space then create a turret
     if space_is_free:
-      new_turret = Turret(cursor_turret, mouse_tile_x, mouse_tile_y)
+      new_turret = Turret(turret_sheet, mouse_tile_x, mouse_tile_y)
       turret_group.add(new_turret)
 
 #create world
@@ -104,7 +105,8 @@ while run:
     cursor_rect = cursor_turret.get_rect()
     cursor_pos = pg.mouse.get_pos()
     cursor_rect.center = cursor_pos
-    screen.blit(cursor_turret, cursor_rect)
+    if cursor_pos[0] < c.SCREEN_WIDTH:
+      screen.blit(cursor_turret, cursor_rect)
 
     # Show cancel button
     if cancel_button.draw(screen):
