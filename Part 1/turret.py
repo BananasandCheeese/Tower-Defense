@@ -4,6 +4,7 @@ import constants as c
 class Turret(pg.sprite.Sprite ):
     def __init__(self, sprite_sheet, tile_x, tile_y): # type: ignore
         pg.sprite.Sprite.__init__(self)
+        self.range = 90
         self.cooldown = 1500
         self.last_shot = pg.time.get_ticks()
 
@@ -25,9 +26,18 @@ class Turret(pg.sprite.Sprite ):
         self.rect = self.image.get_rect()
         self.rect.center = (self.x, self.y)
 
+        #create transparent circle showing range
+        self.range_image = pg.Surface((self.range * 2, self.range * 2)) 
+        self.range_image.fill((0, 0, 0 )) 
+        self.range_image.set_colorkey((0, 0, 0))
+        pg.draw.circle(self.range_image, "grey100", (self.range, self.range), self.range)
+        self.range_image.set_alpha(100)
+        self.range_rect = self.range_image.get_rect()
+        self.range_rect.center = self.rect.center
+
     def load_images(self):
         #extract images from the sprite sheet 
-        self = self.sprite_sheet.get_height()
+        size = self.sprite_sheet.get_height()
         animation_list = []
         for x in range(c.ANIMATION_STEPS):
             temp_img = self.sprite_sheet.subsurface(x * size, 0, size, size)
@@ -51,3 +61,6 @@ class Turret(pg.sprite.Sprite ):
                 self.frame_index = 0
                 #record completed time and clear target so cooldown can begin 
                 self.last_shot = pg.time.get_ticks()
+
+    def draw(self, surface):
+        surface.blit(self.image, self.rect)
