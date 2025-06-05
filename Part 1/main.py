@@ -26,14 +26,14 @@ selected_turret = None
 
 #load images
 #map
-map_image = pg.image.load('Part 1/levels/level.png').convert_alpha()
+map_image = pg.image.load('Part 1/assets/levels/level.png').convert_alpha()
 #turret spritesheets
 turret_spritesheets = []
 for x in range(1, c.TURRET_LEVELS + 1):
   turret_sheet = pg.image.load(f'Part 1/assets/images/turrets/turret_{x}.png').convert_alpha()
   turret_spritesheets.append(turret_sheet)
 #individual turret image for mouse cursor
-cursor_turret = pg.image.load('assets/images/turrets/cursor_turret.png').convert_alpha()
+cursor_turret = pg.image.load('Part 1/assets/images/turrets/cursor_turret.png').convert_alpha()
 #enemies
 enemy_images = {
   "weak": pg.image.load('Part 1/assets/images/enemies/enemy_1.png').convert_alpha(),
@@ -58,7 +58,7 @@ shot_fx = pg.mixer.Sound('Part 1/assets/audio/shot.wav')
 shot_fx.set_volume(0.5)
 
 #load json data for level
-with open('Part 1/levels/level.tmj') as file:
+with open('Part 1/assets/levels/level.tmj') as file:
   world_data = json.load(file)
 
 #load fonts for displaying text on the screen
